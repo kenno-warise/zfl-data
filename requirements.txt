@@ -1,1 +1,4 @@
 django==2.2.5
+django-pandas==0.6.2
+google-api-python-client==1.7.11
+oauth2client==4.1.3
