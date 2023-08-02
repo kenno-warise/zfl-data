@@ -47,9 +47,9 @@
 	  <tr>
 	    <th>年月</th>
 	    <th>本年</th>
-	    <th>前年</th>
-	    <th>前年との差分</th>
-	    <th>先月との差分</th>
+	    <!-- th>前年</th -->
+	    <!-- th>前年との差分</th -->
+	    <!-- th>先月との差分</th -->
 	  </tr>
 	</thead>
 	{% for index, row in df.iterrows %}
@@ -57,9 +57,9 @@
 	  <tr>
 	    <th scope="row">{{ row.date_data }}</th>
 	    <td class="text-primary">{{ row.access_data }}</td>
-	    <td class="text-danger">{{ row.past_months }}</td>
-	    <td><strong class="text-black-50">{{ row.months_error }}</strong></td>
-	    <td><strong>{{ row.previous_month_error }}</strong></td>
+	    <!-- td class="text-danger">{ row.past_months }}</td -->
+	    <!-- td><strong class="text-black-50">{ row.months_error }}</strong></td -->
+	    <!-- td><strong>{ row.previous_month_error }}</strong></td -->
 	  </tr>
 	</tbody>
 	{% endfor %}
@@ -67,9 +67,9 @@
 	  <tr>
 	    <th>年月</th>
 	    <th>本年</th>
-	    <th>前年</th>
-	    <th>前年との差分</th>
-	    <th>先月との差分</th>
+	    <!-- th>前年</th -->
+	    <!-- th>前年との差分</th -->
+	    <!-- th>先月との差分</th -->
 	  </tr>
 	</thead>
       </table>
@@ -86,10 +86,11 @@ function drawChart() {
   var data = new google.visualization.DataTable();
   data.addColumn('string', 'Topping');
   data.addColumn('number', '本年');
-  data.addColumn('number', '前年');
+  /*data.addColumn('number', '前年');*/
   data.addRows([
     {% for index, row in df.iterrows %}
-    ['{{ row.date_data }}', {{ row.access_data }}, {{ row.past_months }}],
+    /*['{{ row.date_data }}', {{ row.access_data }}, {{ row.past_months }}],*/
+    ['{{ row.date_data }}', {{ row.access_data }}],
     {% endfor %}
   ]);
   var options = {'title':'前年とのアクセス数比較表',};

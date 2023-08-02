@@ -2,13 +2,17 @@ from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 import os
 import datetime
-
+from dateutil.relativedelta import relativedelta
 from django.conf import settings
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
 KEY_FILE_LOCATION = os.path.join(settings.ZEROFROMLIGHT_DIR, 'client_secrets.json')
 VIEW_ID = settings.ZEROFROMLIGHT_KEYS['VIEW_ID']
+
+# 12ヵ月前の年・月・日を取得
+months_age_12 = (datetime.datetime.today() - relativedelta(months=12)).strftime("%Y-%m-%d")
+
 
 def initialize_analyticsreporting():
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
@@ -48,7 +52,7 @@ def get_report_web(analytics):
             body={
             'reportRequests': [{
                 'viewId': VIEW_ID,
-                'dateRanges': [{"startDate": "2023-01-01", "endDate": "today"}],
+                'dateRanges': [{"startDate": months_age_12, "endDate": "today"}],
                 # 'dateRanges': [{"startDate": "5daysAgo", "endDate": "today"}],
                 'dimensions': [{'name': 'ga:date'}],
                 'metrics': [{'expression': 'ga:users'}],

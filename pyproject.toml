@@ -48,7 +48,7 @@ runserver = "python3 manage.py runserver"
 startapp = "python3 manage.py startapp {args}"
 shell = "python3 manage.py shell"
 test = "python3 manage.py test {args}"
-cov = "coverage run --include=app/* --omit=app/test*,app/__init__.py,app/migrations manage.py test {args}"
+cov = "coverage run --include=data/* --omit=data/test*,data/__init__.py,data/migrations manage.py test {args}"
 cov-report = "coverage report -m"
 
 # pythonリンター
@@ -60,10 +60,10 @@ dependencies = [
   "ruff>=0.0.243",
 ]
 [tool.hatch.envs.lint.scripts]
-typing = "mypy --install-types --non-interactive {args:app/views.py app/tests.py}"
+typing = "mypy --install-types --non-interactive {args:data/views.py data/tests.py}"
 style = [
-  "ruff --fix {args:app/views.py app/tests.py}",
-  "black --check --diff {args:app/views.py app/tests.py}"
+  "ruff --fix {args:data/views.py data/tests.py}",
+  "black --check --diff {args:data/views.py data/tests.py}"
 ]
 # fmt = [
 #   "black {args:.}",
@@ -130,6 +130,6 @@ ignore = [
 # ビルド実行時に含めるファイルと含めないファイルの設定
 # 以下は配布用Djangoアプリに対しての設定
 # [tool.hatch.build]
-# include = ["app_1/*"]
-# exclude = ["app_1/migrations/*"]
+# include = ["data/*"]
+# exclude = ["data/migrations/*"]
 
