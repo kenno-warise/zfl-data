@@ -16,12 +16,6 @@ from .models import GoogleAccess
 # import japanize_matplotlib
 
 
-# 日付の再設定
-def time(df):
-    df = df.strftime("%Y年%m月")
-    return df
-
-
 def index(request):
     """
     Dataアプリトップページ
@@ -36,8 +30,8 @@ def index(request):
     # アクセス数の合計
     access_sum = "{:,}".format(df["access_data"].sum())
 
-    # time関数を使って日付を再設定
-    df["date_data"] = df["date_data"].apply(time)
+    # 日付を再設定
+    df["date_data"] = df["date_data"].apply(lambda df: df.strftime("%Y年%m月"))
 
     # 日付を元にアクセス数を集約する
     df = df["access_data"].groupby(df["date_data"]).sum().reset_index()
@@ -62,9 +56,7 @@ def index(request):
 
     # データタイプを整数型に変更
     # df['previous_month_error'] = df['previous_month_error'].astype(int)
-
     context = {"df": df, "access_sum": access_sum}
-
     return render(request, "data/index.html", context)
 
 

@@ -25,20 +25,24 @@
 	    <img class="d-flex align-self-center mr-3" src="{% static 'home/image/home_data.png' %}" alt="Generic placeholder image">
 	    <h2>{% block title %}Data{% endblock %}</h2>
 	  </div>
+	  {% if df.values.data %}
 	  <p class="lead">
 	  ２０１９年４月から<strong>ZerofromLight</strong>の運用を始めて、これまでに<strong>{{ access_sum }}</strong>のアクセスがありました。
 	  皆さまのおかげです。ありがとうございます。
 	  </p>
+	  {% else %}
+	  <p>ZerofromLightのアクセス数を表示する予定です。</p>
+	  {% endif %}
 	</div>
       </div>
       <!-- 大型ディスプレイ END -->
 
       <!-- コンテナ内　Analyticsグラフ・よく読まれているBlog記事グラフ -->
 
-      {% if df.iterrows %}
+      {% if df.values.data %}
       <div id="chart_div" style="width: 100%; height: 400px;"></div>
       {% else %}
-      <h1>現在チャートはありません</h1>
+      <p>現在チャートはありません</p>
       {% endif %}
       <br>
 
@@ -46,7 +50,7 @@
 	<thead class="thead-light">
 	  <tr>
 	    <th>年月</th>
-	    <th>本年</th>
+	    <th>年月</th>
 	    <!-- th>前年</th -->
 	    <!-- th>前年との差分</th -->
 	    <!-- th>先月との差分</th -->
@@ -66,7 +70,7 @@
 	<thead class="thead-light">
 	  <tr>
 	    <th>年月</th>
-	    <th>本年</th>
+	    <th>年月</th>
 	    <!-- th>前年</th -->
 	    <!-- th>前年との差分</th -->
 	    <!-- th>先月との差分</th -->
@@ -85,7 +89,7 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = new google.visualization.DataTable();
   data.addColumn('string', 'Topping');
-  data.addColumn('number', '本年');
+  data.addColumn('number', 'アクセス数');
   /*data.addColumn('number', '前年');*/
   data.addRows([
     {% for index, row in df.iterrows %}
@@ -93,7 +97,7 @@ function drawChart() {
     ['{{ row.date_data }}', {{ row.access_data }}],
     {% endfor %}
   ]);
-  var options = {'title':'前年とのアクセス数比較表',};
+  var options = {'title':'アクセス数',};
   var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
   chart.draw(data, options);
 

@@ -5,3 +5,5 @@ migrations/*
 dist
 .python-version
 .coverage
+.mypy_cache
+.ruff_cache
