@@ -129,7 +129,7 @@ ignore = [
 
 # ビルド実行時に含めるファイルと含めないファイルの設定
 # 以下は配布用Djangoアプリに対しての設定
-# [tool.hatch.build]
-# include = ["data/*"]
+[tool.hatch.build]
+include = ["data/*"]
 # exclude = ["data/migrations/*"]
 
