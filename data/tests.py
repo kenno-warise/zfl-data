@@ -1,6 +1,24 @@
-﻿from django.test import TestCase # type: ignore
+﻿import datetime
+
+from django.test import TestCase # type: ignore
 from django.urls import reverse # type: ignore
 
+from .models import GoogleAccess
+
+
+class GoogleAccessModelTests(TestCase):
+    def test_access_data_str_method(self):
+        """
+        GoogleAccessモデルのstrメソッドテスト
+        """
+        time = datetime.datetime(2023, 8, 4).date()
+        access_data = GoogleAccess.objects.create(
+                date_data=time,
+                access_data=1,
+        )
+        self.assertEqual(access_data.__str__(), "2023-08-04")
+        print(access_data.__str__())
+        print('---------')
 
 class IndexTest(TestCase):
     def test_data_pageview(self):
