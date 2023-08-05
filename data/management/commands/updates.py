@@ -15,34 +15,16 @@ class Command(BaseCommand):
         #     )
 
         # アクセス数取得処理
-        google_access = [row for row in print_response_web()]
+        analytics_report = [row for row in print_response_web()]
+        google_access = GoogleAccess
+        google_access.objects.all().delete()
 
-        for google_value, date_number in zip(google_access, reversed(range(len(google_access)))):
+        for google_value, date_number in zip(analytics_report, reversed(range(len(analytics_report)))):
             get_datetime = datetime.date.today() - datetime.timedelta(days=date_number)
-            get_model_data = GoogleAccess.objects.filter(date_data=get_datetime)
 
-            if get_model_data:
-                # get_model_dataの内容が空だった場合、for文処理を行われない。
-                # 空の場合は手前の要素が継続される。
-                for row in get_model_data:
-                    get_access_data = row.access_data
-
-                GoogleAccess.objects.update_or_create(
-                        date_data=get_datetime,
-                        access_data=get_access_data,
-                        defaults={
-                            'date_data': get_datetime,
-                            'access_data': google_value,
-                        }
-                )
-            else:
-                GoogleAccess.objects.update_or_create(
-                        date_data=get_datetime,
-                        access_data=google_value,
-                        defaults={
-                            'date_data': get_datetime,
-                            'access_data': google_value,
-                        }
-                )
+            google_access.objects.create(
+                    date_data=get_datetime,
+                    access_data=google_value,
+            )
 
         self.stdout.write(self.style.SUCCESS('更新完了'))

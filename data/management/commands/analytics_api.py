@@ -11,7 +11,7 @@ KEY_FILE_LOCATION = os.path.join(settings.ZEROFROMLIGHT_DIR, 'client_secrets.jso
 VIEW_ID = settings.ZEROFROMLIGHT_KEYS['VIEW_ID']
 
 # 12ヵ月前の年・月・日を取得
-months_age_12 = (datetime.datetime.today() - relativedelta(months=12)).strftime("%Y-%m-%d")
+months_age_13 = (datetime.datetime.today() - relativedelta(months=13)).strftime("%Y-%m-%d")
 
 
 def initialize_analyticsreporting():
@@ -21,26 +21,26 @@ def initialize_analyticsreporting():
     return analytics
 
 
-def get_report(analytics):
-    """
-    ブログ閲覧数取得
-
-    """
-    return analytics.reports().batchGet(
-            body={
-            'reportRequests': [{
-                'viewId': VIEW_ID,
-                'pageSize': 10,
-                'dateRanges': [{"startDate": "3daysAgo", "endDate": "today"}],
-                'dimensions': [{'name': 'ga:pagePath'}, {'name': 'ga:pageTitle'}],
-                'dimensionFilterClauses': [{'filters': [{'dimensionName': 'ga:pagePath',
-                                                       'expressions': ['/blogs/detail/']}]
-                                           }],
-                'metrics': [{'expression': 'ga:pageviews'}],
-                'orderBys': [{'fieldName': 'ga:pageviews', 'sortOrder': 'DESCENDING'}],
-             }]
-            }
-            ).execute()
+# def get_report(analytics):
+#     """
+#     ブログ閲覧数取得
+# 
+#     """
+#     return analytics.reports().batchGet(
+#             body={
+#             'reportRequests': [{
+#                 'viewId': VIEW_ID,
+#                 'pageSize': 10,
+#                 'dateRanges': [{"startDate": "3daysAgo", "endDate": "today"}],
+#                 'dimensions': [{'name': 'ga:pagePath'}, {'name': 'ga:pageTitle'}],
+#                 'dimensionFilterClauses': [{'filters': [{'dimensionName': 'ga:pagePath',
+#                                                        'expressions': ['/blogs/detail/']}]
+#                                            }],
+#                 'metrics': [{'expression': 'ga:pageviews'}],
+#                 'orderBys': [{'fieldName': 'ga:pageviews', 'sortOrder': 'DESCENDING'}],
+#              }]
+#             }
+#             ).execute()
 
 
 def get_report_web(analytics):
@@ -52,7 +52,7 @@ def get_report_web(analytics):
             body={
             'reportRequests': [{
                 'viewId': VIEW_ID,
-                'dateRanges': [{"startDate": months_age_12, "endDate": "today"}],
+                'dateRanges': [{"startDate": months_age_13, "endDate": "today"}],
                 # 'dateRanges': [{"startDate": "5daysAgo", "endDate": "today"}],
                 'dimensions': [{'name': 'ga:date'}],
                 'metrics': [{'expression': 'ga:users'}],
