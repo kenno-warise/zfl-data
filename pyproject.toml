@@ -131,5 +131,5 @@ ignore = [
 # 以下は配布用Djangoアプリに対しての設定
 [tool.hatch.build]
 include = ["data/*"]
-# exclude = ["data/migrations/*"]
+exclude = ["data/migrations/*"]
 
