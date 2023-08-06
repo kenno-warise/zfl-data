@@ -64,7 +64,7 @@ except FileNotFoundError:
         ZEROFROMLIGHT_KEYS = json.load(secret_file)
 ```
 
-`myproject/urls.py'
+`myproject/urls.py`
 
 ```
 ...python
