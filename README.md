@@ -72,7 +72,7 @@ from django.urls import path, include
 
 urlpatterns = [
     ...,
-    path('', include('ai.urls')),
+    path('', include('data.urls')),
 ]
 ```
 
@@ -94,7 +94,8 @@ base.htmlの内容
 
 
     <!-- StaticFiles CSS -->
-    {% block ai-style %}{% endblock %}
+    {% block data-style %}{% endblock %}
+    {% block google_charts %}{% endblock %}
 
   </head>
   <body>
